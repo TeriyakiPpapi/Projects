@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1605992919 source:c:\users\david\c programs file\hw1010\main.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+

@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1597357024 source:c:\users\david\c programs file\guessdno\main.c
+	<stdio.h>
+	<stdlib.h>
+
