@@ -1,0 +1,6 @@
+Program not finsihed. Here's what I couldn't complete:
+1. I was unable to find a way to put the integers from the end of the file into the arrays. We tried several methods, but there was never a method that would seperate the character and put it where it needed to be. Some attemps would keep the last digit, but none would ever put the 3rd column into the third array and 4th into the 4th array. Another strategy was to store it as a Char temporarily and covert it, but this would only let me convert one digit into a number. If it had two digits, like most do, it would keep the digit furthest to the left.
+2. After hardcoding the numbers for bill, I was able to get all the calculations to work. Unfortunatley, this was probably the easist part. 
+3. I was unable to complete the output section. This was mainly due to not having a great was to compare strings. The .EQ. method would throw an error when trying to compare an array of chars to another one. That was fun. 
+Due to these difficulties, I was unable to complete this program. Please be merciful when handing me my L. 
+-Matt Vollmar

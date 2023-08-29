@@ -1,0 +1,22 @@
+1.) Design Syntax
+
+    type name(type x, type y, type z) {
+        code;
+        return;
+    }
+
+    name(1, 'c', "Hello");
+
+2.) Types
+    Parameters can be any literals
+        INTEGER
+        STRING
+        CHARACTER
+    Return type can be any literals or VOID
+
+3.) Returns
+    return val;
+
+4.) Scope and Parameters
+    - Parameters are by value
+    - Local scope with support for recursion

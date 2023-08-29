@@ -1,0 +1,20 @@
+Our team, David Adebisi Adenugba, Nathan Kiehl, Sarah Melton, Matt Vollmar, and Reece Wehmeyer has created the fire programming language, IgniV (ignee-five). IgniV is a combination of the Latin word for ignite and a roman numeral five for the five members in our group. We have implemented many aspects from Java, C, Python, and COBOL into IgniV. Generally, the aspects include blocks, loops, line terminations, file operations, recursion, zero-based arrays, the print statement, and string to number conversions.
+IgniV uses C as inspiration for the blocks, and the file operations so that the creation of the files in GradeReport and AutoAdvisor programs is as simple as it can be. We have also used C and Python for the syntax of the loops we have, as well as using Python for the syntax of our print statement in IgniV. We used COBOL to define the way if-else statements worked with each other. We have taken inspiration from Java and C for the line terminations in IgniV so that our code can be as orderly as possible. We decided to use recursion so that Quicksort will be as simple as possible to write. Our inspiration for variable declaration and 0 based arrays can be found in Java, C and Python. We have implemented methods that were inspired by Java into IgniV that will make some programs easier to write. strToInt() converts a string to a integer, strToFloat() converts a string to a float, and open() opens a file to get data.
+
+
+
+Precedence 	Operator	Description			Associativity
+1		()		grouping	 		left-to-right
+		[]		array subscripting		
+		{}		list definitions		
+2		*		multiplication			left-to-right
+		/		division	
+3		+		addition			left-to-right
+		-		subtraction	
+4		<		less than			left-to-right
+		<=		less than or equal to	
+		>		greater than	
+		>=		greater than or equal to	
+		==		comparison equal to		
+		!=		comparison not equal to	
+6		=		assignment			right-to-left

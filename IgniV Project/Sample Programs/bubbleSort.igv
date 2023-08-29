@@ -1,0 +1,26 @@
+function bubbleSort(array) {
+    i = 0;
+    j = 0;
+    while (i < 4) {
+        while (j < 4-i) {
+            if (array[j] > array[j+1]) {
+                temp = array[j];
+                array[j] = array[j+1];
+                array[j+1] = temp;
+            }
+            j = j + 1;
+        }
+        i = i+1;
+    }
+}
+
+main() {
+    array = {5, 4, 3, 2, 1};
+	
+    println(array);
+	
+    bubbleSort(array);
+    print("sorted array: ");
+    println(array);
+
+}

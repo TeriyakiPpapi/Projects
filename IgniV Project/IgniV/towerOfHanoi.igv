@@ -1,0 +1,18 @@
+function towerOfHanoi(n, from_rod, to_rod, aux_rod) {
+    if (n == 1) {  
+        println("move disk 1 from rod ", from_rod, " to rod ", to_rod); 
+    } else { 
+        n2 = n;
+        from = from_rod;
+        to = to_rod;
+        aux = to_aux;
+        towerOfHanoi(n2 - 1, from, aux, to);
+        println("Move disk ", n2, " from rod ", from, " to rod ", to );
+        towerOfHanoi(n2 - 1, aux, to, from);
+    } 
+} 
+
+main() {
+    n = 4;
+    towerOfHanoi(n, 'A', 'C', 'B');
+}

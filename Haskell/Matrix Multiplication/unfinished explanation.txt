@@ -1,0 +1,7 @@
+Dr. Lowe,
+I could not finish this program because there are no loops in this language so there is 
+no way for me to loop through the matrix and have the user input their values. 
+There is a method for multiplying matrices but since I cannot get the values, the method 
+is pointless. Thanks for a great year, have a great break, and I will see you next 
+semester for CS380
+Sarah 

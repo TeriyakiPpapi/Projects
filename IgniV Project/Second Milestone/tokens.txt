@@ -1,0 +1,41 @@
+EOF
+INVALID
+	
+Group 1	
+(	LPAREN
+)	RPAREN
+,	COMMA
+{	LCURLY
+}	RCURLY
+[	LBRACKET
+]	RBRACKET
+;	SEMI
+!=	NOTEQUAL
++	PLUS
+-	MINUS
+*	TIMES
+/	DIVIDE
+'	SINQUOTE
+"	DUBQUOTE
+	
+	
+Group 2	
+=	EQUAL
+==	ISEQUAL
+<	LESSTHAN
+<=	LESSTHANEQ
+>	GREATTHAN
+>=	GREATTHANEQ
+	
+	
+Group 3	
+main	MAIN
+void	VOID
+int		INT
+char	CHAR
+str		STR
+if		IF
+else	ELSE
+while	WHILE
+print	PRINT
+read	READ

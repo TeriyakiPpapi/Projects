@@ -1,0 +1,6 @@
+Hey Dr. Lowe,
+My program is essentially done. There was one element that I could not get to work, mainly due to loops in loops with if statments in between not wanting to work for me.
+The Output prints all the information, but does not stack assigments of the same category like it should.
+It is capable of doing everything else, assuming the file is not infinetly large. I used 10 as a test case, but it could be increased in all the loops.
+Thanks for your help during your office hours!
+Matt

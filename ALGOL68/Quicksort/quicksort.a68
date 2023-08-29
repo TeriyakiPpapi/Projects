@@ -1,0 +1,57 @@
+PROC part = (REF [] INT ints, INT first, INT last) INT:
+BEGIN
+    INT pivot := ints[last];
+    INT i := (first - 1);
+    INT temp;
+    
+    FOR j FROM first TO (last - 1)
+    DO
+        IF ints[j] <= pivot THEN
+            i +:= 1;
+	    
+	    temp := ints[i];
+	    ints[i] := ints[j];
+	    ints[j] := temp
+	FI
+    OD;
+
+    i +:= 1; 
+
+    temp := ints[i];
+    ints[i] := ints[last];
+    ints[last] := temp;
+
+    i
+END;
+
+PROC quicksort = (REF [] INT ints, INT first, INT last) VOID:
+BEGIN
+    INT partindex;
+
+    IF first < last THEN
+        partindex := part(ints, first, last);
+
+        quicksort(ints, first, (partindex - 1));
+        quicksort(ints, (partindex + 1), last)
+    FI
+END;
+
+BEGIN
+    [10] INT array;
+
+    print(("Enter 10 Integers", newline));
+
+    FOR i FROM 1 TO 10
+    DO
+        read((array[i]))
+    OD;
+
+    quicksort(array, 1, 10);
+
+    print((newline, "Sorted", newline));
+
+    FOR i FROM 1 TO 10
+    DO
+        print((array[i], newline))
+    OD
+END

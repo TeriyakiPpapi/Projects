@@ -1,0 +1,86 @@
+void printMatrix(int[][] array){
+	int i;
+	i = 0;
+	int j;
+	j = 0;
+	while(i<array.length) {
+		while(j<array.length) {
+			println(array[i][j]);
+			j = j + 1;
+		}
+		i = i + 1;		
+	}
+}
+
+array compatible(int ar, int ac, int br, int bc, int[][] array1, int[][] array2){
+	int i;
+	i = 0;
+	int j;
+	j = 0;
+	int k;
+	k = 0;
+	int matrix[][];
+	if(ac != br){
+		println("Incompatible Dimensions");
+	}
+	else {
+		while(i<ar){
+			while(j<bc){
+				while(k<br) {
+					matrix[i][j] = matrix[i][j] + (array1[i][k] * array2[k][j]);
+					k = k + 1;
+				}
+				j = j + 1;
+			}
+		i = i + 1;
+		}
+	}
+		
+}
+
+array makeArray(int r, int c) {
+	int i;
+	int i = 0;
+	int j;
+	int j = 0;
+	int matrix[][];	
+
+	while(i<r) {
+		while(j<c) {
+			matrix[i][j] = read();
+			j = j + 1;
+		}
+		i = i + 1;
+	}
+	return matrix
+}
+
+main() {
+	int rowsA;
+	int colsA;
+	int rowsB;
+	int colsB; 
+	int matrixA[][];
+	int matrixB[][];
+	int multMatrix[][];
+
+	println("Matrix A");
+	println("Enter the number of rows: ");
+	rowsA = read();
+	println("Enter the number of cols: ");
+	colsA = read();
+	print("Enter your values for Matrix A: ");
+	matrixA = makeArray(rowsA, colsA);
+
+	println("Matrix B");
+	println("Enter the number of rows: ");
+	rowsB = read();
+	println("Enter the number of cols: ");
+	colsB = read();
+	print("Enter your values for Matrix B: ");
+	matrixB = makeArray(rowsB, colsB);
+
+	multMatrix = compatible(rowsA, colsA, rowsB, colsB, matrixA, matrixB);
+
+	printMatrix(multMatrix);
+}

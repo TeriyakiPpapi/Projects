@@ -1,0 +1,19 @@
+Name: 
+
+Functions: Root of all programs
+	- overload: no
+	- recursion: yes
+	- file input: yes
+	- print
+		- regex
+	- type conversion: yes
+	
+Influences: Java, Python, C, COBOL
+
+Line Termination: yes: ;
+
+Blocks: {}
+
+Arrays: 
+	- 0 based
+	- []

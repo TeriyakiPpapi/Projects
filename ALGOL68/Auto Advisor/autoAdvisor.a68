@@ -1,0 +1,252 @@
+# File: autoAdvisor.a68 #
+# Description: Torture the students by having to learn another new language. #
+# Author: Nathan Kiehl #
+
+# Split a string on a one character delimeter #
+PROC split = (STRING line, STRING delim) [] STRING:
+BEGIN
+    [8] STRING fields;
+    [64] CHAR curstr;
+    INT curnum := 0;
+    INT tempcur;
+    INT loops := 0;
+    
+    FOR n FROM 1 TO 8 WHILE 1+curnum <= UPB line DO
+        tempcur := 0;
+        FOR i FROM 1 TO 64 WHILE line[i+curnum] /= delim DO
+            curstr[i] := line[i+curnum];
+            tempcur := i;
+            IF 1+curnum+tempcur > UPB line THEN
+                GOTO lineup
+            FI
+        OD;
+        
+        lineup:
+        curnum := curnum + tempcur + 1;
+        
+        fields[n] := curstr[1:tempcur];
+        loops := loops + 1
+    OD;
+    
+    fields[1:loops]
+END;
+
+# Turn a string into an integer #
+PROC to int = (STRING str) INT:
+BEGIN
+    INT total := 0;
+    IF str[1] = "-" THEN
+        FOR i FROM 2 TO UPB str DO
+            IF str[i] = " " THEN GOTO end FI;
+            INT num := ABS str[i] - 48;
+            total := total*10 + num
+        OD;
+        total := total * -1
+        ELSE 
+            IF str[1] = "+" THEN
+                FOR i FROM 2 TO UPB str DO
+                    IF str[i] = " " THEN GOTO end FI;
+                    INT num := ABS str[i] - 48;
+                    total := total*10 + num
+                OD
+                ELSE
+                    FOR i FROM 1 TO UPB str DO
+                        IF str[i] = " " THEN GOTO end FI;
+                        INT num := ABS str[i] - 48;
+                        total := total*10 + num
+                    OD
+            FI
+    FI;
+    end:
+    total
+END;
+
+# Main method #
+BEGIN
+    # Main arrays to store data #
+    [256] STRING names;
+    [256] INT hours;
+    [256,8,8] STRING preqs;
+    [256] CHAR grades;
+    
+    # Calculated data for display #
+    REAL gpa := 0.0;
+    INT attempted hours := 0;
+    INT remaining hours := 0;
+    INT completed hours := 0;
+    
+    # Course take list, had to be declared before label #
+    BOOL preq;
+    
+    # Open the file #
+    
+    STRING filename;
+    print(("File: "));
+    read((filename));
+    #
+    STRING filename := "senior";
+    print(("File: ", filename, newline));
+    #
+    
+    FILE inf;
+    BOOL eof := FALSE;
+    open(inf, filename, stand in channel);
+    on logical file end (inf, (REF FILE f) BOOL: (eof := TRUE));
+    
+    STRING templine;
+    
+    
+    # Get data line by line #
+    FOR i FROM 1 TO 256 WHILE ~eof DO
+        # Read current line #
+        get(inf, templine);
+        
+        # Quit early because eof doesn't always work #
+        IF templine = "" THEN GOTO got data FI; 
+        
+        
+        # Split the string on bars #
+        FLEX[1:0] STRING fields := split(templine, "|");
+        INT items := UPB fields; # number of fields (3-4) #
+        
+        # Get name and number of hours #
+        names[i] := fields[1];
+        hours[i] := to int(fields[2]);
+        
+        # Get prerequisites #
+        IF fields[3] /= "" THEN
+            FLEX [1:0] STRING ors := split(fields[3], " ");
+            FOR j FROM 1 TO UPB ors DO
+                FLEX [1:0] STRING ands := split(ors[j], ",");
+                FOR k FROM 1 TO UPB ands DO
+                    IF ands[k] /= "" THEN
+                        preqs[i,j,k] := ands[k]
+                    FI
+                OD;
+                IF preqs[i,j,1] = "Senior" THEN
+                    preqs[i,j,1] := "Senior Standing";
+                    FOR k FROM 2 TO 7 DO
+                        preqs[i,j,k] := preqs[i,j,k+1]
+                    OD;
+                    preqs[i,j,8] := ""
+                FI
+            OD
+        FI;
+        
+        # If there is a grade field, get the grade #
+        BOOL grade := FALSE;
+        
+        IF
+            items = 4
+        THEN
+            IF 
+                fields[4][1] /= " "
+            THEN
+                grades[i] := fields[4][1];
+                grade := TRUE
+                ELSE
+                    grades[i] := " "
+            FI
+            ELSE
+                grades[i] := " "
+        FI;
+        
+        # If there was a grade, do grade math for gpa, #
+        # attempted hours, and remaining hours #
+        IF grade THEN
+            IF grades[i] = "A" THEN
+                gpa := gpa + 4*hours[i];
+                completed hours := completed hours + hours[i]
+                ELSE
+                    IF grades[i] = "B" THEN
+                        gpa := gpa + 3*hours[i];
+                        completed hours := completed hours + hours[i]
+                        ELSE
+                            IF grades[i] = "C" THEN
+                                gpa := gpa + 2*hours[i];
+                                completed hours := completed hours + hours[i]
+                                ELSE
+                                    IF grades[i] = "D" THEN
+                                        gpa := gpa + 1*hours[i];
+                                        remaining hours := remaining hours + hours[i]
+                                        ELSE
+                                            IF grades[i] = "F" THEN
+                                                gpa := gpa + 0*hours[i];
+                                                remaining hours := remaining hours + hours[i]
+                                            FI
+                                    FI
+                            FI
+                    FI
+            FI;
+            attempted hours := attempted hours + hours[i]
+            ELSE
+                remaining hours := remaining hours + hours[i]
+        FI;
+        
+        # Ready next line in file #
+        newline(inf)
+    OD;
+    
+    
+    # Escape the loop when we are out of lines #
+    got data:
+    
+    # Calculate GPA #
+    IF gpa = 0.0 OR attempted hours = 0 THEN
+        gpa := 0.0
+        ELSE
+            gpa := gpa / attempted hours
+    FI;
+    close(inf);
+    
+    
+    # Print calculated information #
+    printf(($g d.2dl$, "GPA: ", gpa));
+    printf(($g g(0)l$, "Hours Attempted: ", attempted hours));
+    printf(($g g(0)l$, "Hours Completed: ", completed hours));
+    printf(($g g(0)ll$, "Credits Remaining: ", remaining hours));
+    
+    print(("Possible Courses to Take Next", newline));
+    
+    # Calculate what courses can be taken #
+    preq := FALSE;
+    FOR i FROM 1 TO 256 WHILE names[i] /= "" DO # All the courses #
+        IF # If this course needs to be taken #
+            grades[i] = " " OR
+            grades[i] = "D" OR
+            grades[i] = "F"
+        THEN
+            BOOL can take := TRUE;
+            # Or groups #
+            FOR j FROM 1 TO 8 WHILE preqs[i,j,1] /= "" DO
+                can take := FALSE;
+                # And groups #
+                FOR k FROM 1 TO 8 WHILE preqs[i,j,k] /= "" DO
+                    # Check all courses for preq match #
+                    FOR l FROM 1 TO 256 WHILE names[l] /= "" DO
+                        IF names[l] = preqs[i,j,k] THEN # If the names match #
+                            IF # If it is a good grade #
+                                grades[l] = "A" OR
+                                grades[l] = "B" OR
+                                grades[l] = "C"
+                            THEN
+                                can take := TRUE
+                            FI # End grade match #
+                        FI # End name match #
+                    OD # End preq match #
+                OD; # End And #
+                IF can take THEN GOTO recommend FI
+            OD; # End OR #
+            
+            recommend:
+            IF can take THEN
+                preq := TRUE;
+                print(("  ", names[i], newline))
+            FI
+        FI
+    OD;
+    
+    # When there are no more courses left to recommend #
+    IF ~preq THEN print(("  None - Congratulations!", newline)) FI
+    
+END

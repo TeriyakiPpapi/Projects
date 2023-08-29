@@ -1,0 +1,211 @@
+# Turn a string into an integer, ignores trailing whitespace but leading whitespace breaks it #
+PROC to int = (STRING str) INT:
+BEGIN
+    INT total := 0;
+
+    IF str = "" THEN GOTO end FI;
+    IF str[1] = "-" THEN
+        FOR i FROM 2 TO UPB str DO
+            IF str[i] = " " THEN GOTO end FI;
+            INT num := ABS str[i] - 48;
+            total := total*10 + num
+        OD;
+        total := total * -1
+        ELSE 
+            IF str[1] = "+" THEN
+                FOR i FROM 2 TO UPB str DO
+                    IF str[i] = " " THEN GOTO end FI;
+                    INT num := ABS str[i] - 48;
+                    total := total*10 + num
+                OD
+                ELSE
+                    FOR i FROM 1 TO UPB str DO
+                        IF str[i] = " " THEN GOTO end FI;
+                        INT num := ABS str[i] - 48;
+                        total := total*10 + num
+                    OD
+            FI
+    FI;
+    end:
+    total
+END;
+
+# Splits a string into the required four fields, does not trim whitespace #
+PROC split homework = (STRING line) [] STRING:
+BEGIN
+    [4] STRING fields;
+    [20] CHAR curstr;
+    INT curnum := 0;
+    INT tempcur;
+# HERE #
+    IF line = "" THEN GOTO finished FI;
+    
+    tempcur := 0;
+    FOR i FROM 1 TO 20 DO
+        curstr[i] := line[i];
+        tempcur := i
+    OD;
+    
+    curnum := curnum + tempcur;
+    
+    fields[1] := curstr[1:tempcur];
+    
+    tempcur := 0;
+    FOR i FROM 1 TO 20 DO
+        curstr[i] := line[i+curnum];
+        tempcur := i
+    OD;
+    
+    curnum := curnum + tempcur;
+    
+    fields[2] := curstr[1:tempcur];
+    
+    tempcur := 0;
+    FOR i FROM 1 TO 14 DO
+        curstr[i] := line[i+curnum];
+        tempcur := i
+    OD;
+    
+    curnum := curnum + tempcur;
+    
+    fields[3] := curstr[1:tempcur];
+    
+    tempcur := 0;
+    FOR i FROM 1 TO 14 DO
+        curstr[i] := line[i+curnum];
+        tempcur := i
+    OD;
+    
+    curnum := curnum + tempcur;
+    
+    fields[4] := curstr[1:tempcur];
+    
+    finished:
+    fields
+    
+END;
+
+# Main Method #
+BEGIN
+    INT totalpoints := 0;
+    FILE inf;
+    BOOL eof := FALSE;
+
+    STRING filename;
+    print(("File: "));
+    read((filename));
+
+    open(inf,filename,stand in channel);  # Opens the file #
+    on logical file end (inf, (REF FILE f) BOOL: (eof := TRUE));
+    INT templine;
+    get(inf,templine);
+    totalpoints := templine;    # Pulls first line into the totalpoints variable #
+    newline(inf);   # Moves to the next line, preparing for the whole file #
+
+    STRING line;    # Switches the input to recieve a string #
+    
+    [256] STRING name;
+    [256] STRING category;
+    [256] INT pointspossible;
+    [256] INT pointsearned;
+    [4] STRING fields;
+    INT currentpoints := 0;
+    INT pointsavailable := 0;
+    INT pointsremaining := 0; 
+    REAL currentgrade := 0;
+    REAL maxgrade := 0;
+    REAL mingrade := 0;
+    INT y := 0;
+    STRING temp := " ";
+    INT categorytotal := 0;
+    INT categorycurrent := 0;
+    REAL categoryweight := 0;
+    INT categorysize := 0;
+
+    FOR i FROM 1 TO 256 WHILE ~eof
+    DO
+        get(inf,line);
+        newline(inf);
+        IF line = "" THEN # A way for the program to know when the arrays end #
+            pointspossible[i] := -1;
+            pointsearned[i] := -1;
+            GOTO finished 
+        FI;
+
+        fields := split homework(line);
+
+        name[i] := fields[1];
+        category[i] := fields[2];
+        INT num1 := to int(fields[3]);
+        pointspossible[i] := num1;
+        INT num2 := to int(fields[4]);
+        pointsearned[i] := num2
+    OD;
+
+    finished:
+    #Calculate the values for needed variables #
+    
+    FOR i FROM 1 TO 256
+    DO
+        IF pointsearned[i] = -1 THEN GOTO next FI;
+        currentpoints := currentpoints + pointsearned[i]
+    OD;
+    next:
+    FOR i FROM 1 TO 256
+    DO
+        IF pointspossible[i] = -1 THEN GOTO next2 FI;
+        pointsavailable := pointsavailable + pointspossible[i]
+    OD;
+    next2:
+    pointsremaining := totalpoints - pointsavailable;   
+    currentgrade := ((currentpoints * 100) / pointsavailable);
+    maxgrade := ((pointsremaining + currentpoints) * 100 / totalpoints);
+    mingrade := ((currentpoints * 100) / totalpoints);
+
+    FOR i FROM 1 TO 256 # get the size of the arrays #
+    DO
+        IF pointspossible[i] = -1 THEN GOTO next3 FI;
+        categorysize := categorysize + 1
+    OD;
+    next3:
+    # Preparing the output table #
+    print((" ", newline));
+
+    FOR i FROM 1 TO categorysize
+    DO
+        temp := category[i];
+        IF temp /= "" THEN
+            categorytotal := 0;
+            categorycurrent := 0;
+            categoryweight := 0;
+            FOR j FROM 1 TO categorysize
+            DO
+                IF category[j] = temp THEN
+                    categorytotal := categorytotal + pointspossible[j];
+                    categorycurrent := categorycurrent + pointsearned[j]
+                FI
+            OD;
+            categoryweight := ((categorytotal * 100) / pointsavailable);
+            print((temp));
+            printf(($ g g(0) g l$, "(", categoryweight, "%)"));
+            print(("==================================", newline));
+            FOR j FROM 1 TO categorysize 
+            DO
+                IF category[j] = temp THEN
+                    print((name[j]));
+                    printf(($g(0) g g(0) g g(0) gl$, pointsearned[j], "/", pointspossible[j], "       ", (pointsearned[j] * 100 / pointspossible[j]), "%"));
+                    category[j] := ""
+                FI
+            OD;
+            print(("==================================", newline));
+            printf(($g g(0) g g(0) g g(0) gl$, "                    ",categorycurrent, "/", categorytotal, "      ", (categorycurrent * 100 / categorytotal), "%"));
+            print((" ", newline))
+
+        FI
+    OD;
+    print((" ", newline));
+    printf(($g g(0) gl$, "Current Grade: ", currentgrade, "%"));
+    printf(($g g(0) gl$, "Minimum Final Grade: ", mingrade, "%"));
+    printf(($g g(0) gl$, "Maximum Final Grade: ", maxgrade, "%"))
+
+END

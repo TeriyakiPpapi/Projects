@@ -1,0 +1,45 @@
+function part(ints, first, last) {
+	pivot = ints[last];
+	i = (first - 1);
+	j = first;
+	while(j<last){
+		if(ints[j] <= pivot){
+			i = i + 1;
+			temp = ints[i];
+			ints[i] = ints[j];
+			ints[j] = temp;
+		}
+		j = j + 1;
+	}
+	temp = ints[(i+1)];
+	ints[(i+1)] = ints[last];
+	ints[last] = temp;
+	return (i+1);
+}
+
+function quickSort(ints, first, last) {
+	partIndex;
+	if(first<last){
+		partIndex = part(ints, first, last);
+		lastl = last;
+		quickSort(ints, first, (partIndex - 1));
+		quickSort(ints, (partIndex + 1), lastl);
+	}
+}
+
+main() {
+	i = 0;	
+	array = {0,0,0,0,0,0,0,0,0,0};
+	println("Enter 10 integers: ");
+
+	while(i<10){
+                temp;
+		read(temp);
+		array[i] = temp;
+		i = i + 1;
+	}
+
+	quickSort(array,0,9);
+	println("Sorted");
+        println(array);
+}

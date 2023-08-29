@@ -1,0 +1,41 @@
+Author: Nathan Kiehl
+
+I have not finished yet because I am having trouble getting my iterative loop logic correct for going through all the pre-requisites and only displaying courses that can and haven't been taken. Below I have provided the Java logic for my iterative loop logic.
+
+
+        boolean preqLeft = false; // Boolean to see if we need to print the finished message or not
+        for (Course course : courses) {
+            if (course.grade.compareTo("") == 0 || course.grade.compareTo("D") == 0 || course.grade.compareTo("F") == 0) {
+                boolean canTake = true; // If a grade is too low or no grade exists, this will become false and will prevent the course from being recommended
+                for (String[] group : course.preqs) {
+                    canTake = true;
+                    for (String name : group) {
+                        if (courseHash.containsKey(name)) {
+                            switch (courseHash.get(name).grade) {
+                                case "A":
+                                case "B":
+                                case "C":
+                                    break; // A-C is passing grade
+                                case "D":
+                                case "F":
+                                default:
+                                    canTake = false; // D, F, and no grade means it needs to be taken (again)
+                                    break;
+                            }
+                        }
+                        else if (name.compareTo("") != 0){
+                            canTake = false;
+                        }
+                    }
+                    if (canTake) {
+                        break;
+                    }
+                }
+                
+                // Recommend applicable courses
+                if (canTake) {
+                    preqLeft = true;
+                    System.out.printf("  %s\n", course.name);
+                }
+            }
+        }

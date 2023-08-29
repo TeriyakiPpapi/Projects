@@ -1,0 +1,138 @@
+BNF Grammar
+===========
+< program >     ::= < fun-declist > < block > 
+                    | < block >
+
+< fun-declist > ::= < fun > 
+                    | < fun-declist > < fun >
+
+< fun >         ::= < fun-type > < id > "(" < param-list > ")" < block >
+                    | < fun-type > < id > "(" ")" < block >
+
+< fun-type >    ::= "void"
+                    | < type >
+
+< param-list >  ::= < param-decl >
+                    | < param-decl > "," < param-list >
+
+< param-decl >  ::= < type > < id > 
+                    | < type > "[]" < id >
+
+< block >       ::= "{" < stmnt-list > "}"
+
+< var-decl >    ::= < type > < id >
+                    | < type > < id > "[" < bounds > "]"
+
+< bounds >     ::=  < integer >
+                    | < bounds > "," < integer >
+
+< type >        ::= "int"
+		    | "float"
+                    | "char"
+                    | "str"
+                    | "file"
+		
+
+< stmnt-list >  ::= < stmnt >
+                    | < stmnt > < stmnt-list >
+
+< stmnt >       ::= < assign > ";"
+                    | < branch >
+                    | < loop >
+                    | < expr > ";"
+                    | < print > ";"
+                    | < read > ";"
+		    | < toInt > ";"
+		    | < toFloat > ";"
+		    | < open > ";"
+                    | < read > ";"
+		    | < var-decl > ";"
+
+< assign >      ::= < ref > "=" < expr >
+		    | < var-decl > "=" < expr >
+
+< branch >      ::= "if" "(" < condition > ")" < block >
+                    | "if" "(" < condition > ")" < block > "else" < block >               
+
+< loop >        ::= "while" "(" < condition > ")" < block >
+
+< condition >   ::= < expr > "==" < expr > 
+                    | < expr > "!=" < expr>
+                    | < expr > "<" < expr >
+                    | < expr > "<=" < expr >
+                    | < expr > ">" < expr >
+                    | < expr > ">=" < expr >
+
+< expr >        ::= < term >
+                    | < expr > "+" < term >
+                    | < expr > "-" < term >
+
+< term >        ::= < exponent >
+                    | < term > "*" < exponent >
+                    | < term > "/" < exponent >
+
+< exponent >    ::= "(" < expr > ")"
+		    | < ref >
+		    | < literal >
+		    | < call >
+		    | < list >
+					
+< list >	::= "{" < arg-list > "}"
+
+< round >	::= "round" "(" < float > "," < int > ")"
+
+< print >       ::= "print" "(" < arg-list > ")"
+
+< toInt >       ::= "strToInt" "(" < string > ")"
+
+< toFloat >     ::= "strToFloat" "(" < string > ")"
+
+< arg-list >    ::= < expr >
+                    | < expr > "," < arg-list >
+
+< open >	::= "open" "(" < string > ")"
+
+< read >        ::= "read" "(" < ref-list > ")"
+
+< ref-list >    ::= < ref >
+                    | < ref > "," < ref-list >
+
+< ref >         ::= < id >
+                    | < id > "[" < arg-list > "]"
+
+< literal >     ::= < integer >
+                    | < float >
+                    | < char >
+                    | < string >
+
+< call >        ::= < id > "(" < arg-list > ")"
+                    | < id > "(" ")"
+
+< integer >     ::= < digit >
+                    | < integer > < digit >
+
+< float >       ::= < integer > "." < integer >
+
+< char >     ::= "'" < character > "'"
+
+< string >      ::= "\"" < characters > "\""
+		    | < string > "[" < bounds > "]"
+
+< characters>   ::= < character >
+                    | < characters > < character >
+
+< id >          ::= < letter >
+                    | < id > < digit >
+                    | < id > < letter >
+
+
+
+Informally Stated (not in BNF)
+==============================
+< digit > Any digit 0-9
+< character > Any character, with normal escapes \n, \t, \', \"
+< letter> Any upper or lower case letter
+
+Arrays are 0 based.
+Functions should be pass by reference.
+Comments begin with "#" and extend to the end of a line

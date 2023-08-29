@@ -1,0 +1,13 @@
+I, Reece Wehmeyer, was unable to get my part of the 4 Programs completed. My job was to make the Quicksort algorithm work using Fortran,
+ and I failed. I have submitted the code that I THOUGHT should work, and will now attempt to explain my difficulties and struggles using
+ this basic language. I spent a lot of time struggling to figure out why my code was giving so many errors at first, and eventually I
+ reread the manual enough times to understand that functions and subroutines cannot call other functions or subroutines. Based on the
+ things I had been told from my group members and by Dr. Lowe, I had originally thought that functions could call other functions, as
+ long as they weren't calling themself, otherwise, recursion would be very easy to implement in Fortran. After figuring that out, I
+ then had to figure out why I kept getting type mismatch errors. Eventually I realised that most numbers in Fortran are considered
+ reals and that I was using integers, but trying to return a real. So, after figuring those two major errors out, I restructured my code
+ and tried running things again. At this point, everything compiled and ran fine, but once the Quicksort algorithm in the function that
+ I made tried to run, I kept recieving segmentation faults. I searched for a very long time to try and find the flaw in my logic, and
+ at this point I am assuming it has something to do with my array, but alas I could not figure it out. I spent probably close to fifteen
+ long hours trying to debug this code that took me twenty minutes max to write in Java. Regretfully, I did not finish the code to make
+ it work correctly, but I am out of time and have other code to debug. (Yay Funlang)

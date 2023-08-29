@@ -1,0 +1,86 @@
+IgniVProgram
+	Return Type: VOID
+	Evaluates its list of statements, one after another.
+	
+BLOCK
+	Return Type: VOID | INTEGER | CHARACTER | STRING
+	Evaluate statements within and returns from a return statement.
+	
+	has statement list which has statements
+	
+BRANCH
+	Return Type: VOID
+	Evaluates conditions and if true executes block(s).
+	
+	has condition
+
+LOOP
+	Return Type: VOID
+	While condition is true, executes block.
+	
+	has condition
+
+READ
+	Return Type: INTEGER | CHARACTER | STRING
+	Accepts input from the user returns that info.
+	
+	contains ref-list (things to be read into)
+
+VAR-DECL
+	Return Type: VOID
+	Assigns a value to a variable
+	
+	Has bounds
+	
+Expr
+	Return Type: INTEGER | CHARACTER | STRING Depending on the operands
+				 VOID on error
+	
+	BinaryOperations - BinOP
+		Add Return Type:
+					INTEGER, INTEGER -> INTEGER
+					INTEGER, CHARACTER -> CHARACTER
+					CHARACTER, INTEGER -> CHARACTER
+					CHARACTER, CHARACTER -> STRING (concatenate the characters)
+					
+					INTEGER, STRING -> STRING (int and then string into string)
+					STRING, INTEGER -> STRING (concatenate the int)
+					CHARACTER, STRING -> STRING (concatenate the string to the character)
+					STRING, CHARACTER -> STRING (concatenate the character to the string)
+					STRING, STRING -> STRING (concatenate the strings)
+
+		Multiply Return Type:
+					INTEGER, INTEGER -> INTEGER
+					INTEGER, CHARACTER -> CHARACTER
+					CHARACTER, INTEGER -> CHARACTER
+					
+					INTEGER, STRING -> STRING (concatenate string integer times)
+					STRING, INTEGER -> STRING (concatenate string integer times)
+
+					rest return VOID because error
+
+
+		Subtract, Divide Return Type:
+					INTEGER, INTEGER -> INTEGER
+					rest return VOID because error
+	
+	has list
+	
+Print
+	Return Type: VOID
+	Process arg-list, printing as it goes
+	
+Ref
+	Return Type: INTEGER | STRING | CHARACTER
+	
+	Evaluate to their stored value
+	
+	Assign function for assignments
+		
+Assign
+	Return Type: VOID
+	Assigns the value on the right to the variable on the left
+	
+Literal
+	Return Type: INTEGER | CHARACTER | STRING
+	

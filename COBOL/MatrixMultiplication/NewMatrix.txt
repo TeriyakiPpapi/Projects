@@ -1,0 +1,105 @@
+IDENTIFICATION DIVISION.
+PROGRAM-ID. MATRIX-MULTIPLICATION.
+ENVIRONMENT DIVISION. 
+CONFIGURATION SECTION. 
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01   A-ROWS    PIC  9(2).
+01   A-COLS    PIC  9(2).
+01   B-ROWS    PIC  9(2).
+01   B-COLS    PIC  9(2).
+01   MATRIXA.
+    05 MATRIXROWA OCCURS 5 TIMES.
+        10 MATRIXCOLA PIC 9(2) OCCURS 5 TIMES.
+01   MATRIXB.
+    05 MATRIXROWB OCCURS 5 TIMES.
+        10 MATRIXCOLB PIC 9(2) OCCURS 5 TIMES.
+01   MATRIXC.
+    05 MATRIXROWC OCCURS 5 TIMES.
+        10 MATRIXCOLC PIC 9(3) OCCURS 5 TIMES.
+01 I PIC 9.
+01 J PIC 9.
+01 K PIC 9.
+01 PREVROW PIC 9(2) . 
+PROCEDURE DIVISION.
+MAIN-PARA.
+       DISPLAY "Beginning the program".
+       DISPLAY "Input the no of rows for matrix A".
+       ACCEPT A-ROWS.
+       DISPLAY "Input the no of colunms for matrix A".
+       ACCEPT A-COLS.
+       DISPLAY "Input the no of rows for matrix B".
+       ACCEPT B-ROWS.
+       DISPLAY "Input the no of columns for matrix B".
+       ACCEPT B-COLS.
+       IF (A-COLS IS NOT EQUAL TO B-ROWS)
+        DISPLAY "Incompatable dimensions"
+        ELSE
+          PERFORM MM-PARA.
+       STOP RUN.
+MM-PARA.
+    DISPLAY "ENTER THE VALUES IN MATRIX A".
+    PERFORM READMATRIXA VARYING I FROM 1 BY 1 UNTIL I > A-ROWS
+      AFTER J FROM 1 BY 1 UNTIL J > A-COLS.
+    DISPLAY "ENTER THE VALUES IN MATRIX B".
+    PERFORM READMATRIXB VARYING I FROM 1 BY 1 UNTIL I > B-ROWS
+      AFTER J FROM 1 BY 1 UNTIL J > B-COLS.
+    PERFORM COMPMATRIXC VARYING I FROM 1 BY 1 UNTIL I > A-ROWS
+        AFTER J FROM 1 BY 1 UNTIL J > B-COLS
+        AFTER K FROM 1 BY 1 UNTIL K > A-COLS.
+    DISPLAY "MATRIX A" .
+    DISPLAY "--------".
+    DISPLAY "Rows: " A-ROWS.
+    DISPLAY "Columns: " A-COLS.
+   set prevrow to 1. 
+    PERFORM 
+        DISPLAYMATRIXA
+        VARYING I FROM 1 BY 1 UNTIL I > A-ROWS
+        AFTER J FROM 1 BY 1 UNTIL J > A-COLS.
+    DISPLAY " ".
+    DISPLAY "MATRIX B".
+    DISPLAY "--------".
+    DISPLAY "Rows: " B-ROWS.
+    DISPLAY "Columns: " B-COLS.
+    set prevrow to 1. 
+    PERFORM 
+        DISPLAYMATRIXB 
+        VARYING I FROM 1 BY 1 UNTIL I > B-ROWS
+        AFTER J FROM 1 BY 1 UNTIL J > B-COLS.
+    DISPLAY " "
+    DISPLAY "A x B = "
+    set prevrow to 1. 
+    PERFORM 
+        DISPLAYMATRIXC 
+        VARYING I FROM 1 BY 1 UNTIL I > A-ROWS
+        AFTER J FROM 1 BY 1 UNTIL J > B-COLS
+    STOP RUN.
+READMATRIXA.
+***we take the input from the user 
+
+
+    ACCEPT MATRIXCOLA(I J).
+READMATRIXB.
+    ACCEPT MATRIXCOLB(I J).
+***calculation
+COMPMATRIXC.
+    COMPUTE MATRIXCOLC(I J) = MATRIXCOLC(I J) + MATRIXCOLA(I K) * MATRIXCOLB(K J).
+DISPLAYMATRIXA.
+    IF (I IS NOT EQUAL PREVROW)
+       DISPLAY " "
+       SET PREVROW TO I.
+    DISPLAY  MATRIXCOLA(I J) " "
+    NO ADVANCING.
+    
+DISPLAYMATRIXB.
+IF (I IS NOT EQUAL PREVROW)
+       DISPLAY " " set prevrow to i 
+    DISPLAY  MATRIXCOLB(I J) " " NO ADVANCING.
+DISPLAYMATRIXC.
+IF (I IS NOT EQUAL PREVROW)
+       DISPLAY " "
+       **prevrow helps with proper format of the matrix 
+       
+        set prevrow to i  
+    DISPLAY  MATRIXCOLC(I J) " " NO ADVANCING.
+

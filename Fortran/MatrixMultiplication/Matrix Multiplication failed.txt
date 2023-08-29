@@ -1,0 +1,5 @@
+I did not get the matrix multiplication done
+I do not even know if it works correctly, since there are so many errors that I don't know how to fix and wouldn't run until I fixed every error
+The dimensions are in the real format so that its not just integers that can be read
+Logically, it should work if all the errors were fixed, but if it doesn't it might be a synatx error with the type real in the dimensions and reading in a number from user
+Had a little bit of a hard time adjusting code from integer based to real based

@@ -1,0 +1,41 @@
+Task: Create Specification Document
+	- Language Overview
+		- Introduction to the Language: Sarah
+		- Discussion of Influences: Sarah
+		- BNF Description of Syntax: Reece & Nathan
+	- Example Programs: David & Matt
+		- Hello World
+		- Implementation and Test of Bubble Sort
+		- Tower of Hanoi Solver
+	- Language Reference Manual: Reece & Nathan
+		- Operator Precedence Chart
+		- Operator Explanations
+		- Semantic Information
+			- Arrays and Indices
+			- Type Coercion Rules
+			- Parameter Passing Information
+			- Other Semantic Information
+			
+			
+Sarah:
+	- Language Overview
+		- Introduction to the Language
+		- Discussion of Influences
+
+David & Matt:
+	- Example Programs
+		- Hello World
+		- Implementation and Test of Bubble Sort
+		- Tower of Hanoi Solver
+		
+Reece, Nathan, & Sarah:
+	- Language Overview
+		- BNF Description of Syntax
+	- Language Reference Manual
+		- Operator Precedence Chart
+		- Operator Explanations
+		- Semantic Information
+			- Arrays and Indices
+			- Type Coercion Rules
+			- Parameter Passing Information
+			- Other Semantic Information

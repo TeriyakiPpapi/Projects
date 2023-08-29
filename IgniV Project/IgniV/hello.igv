@@ -1,0 +1,107 @@
+function test(a) {
+    print(a, "\n");
+}
+
+function addtest() {
+    print(1 + 1, "\n");
+    print(1 + 'a', "\n");
+    print('a' + 1, "\n");
+    print(1+1.5, "\n");
+    print(2.5+2, "\n");
+    print(3.14+6.86, "\n");
+    print('!' + '!', "\n");
+    print(1 + " test", "\n");
+    print("testing " + 1, "\n");
+    print('i' + "'m testing", "\n");
+    print("testing stuf" + 'f', "\n");
+    print("we " + "did it!", "\n");
+}
+
+function subtest() {
+    print(5-2, "\n");
+    print(1.5-1, "\n");
+    print(5-2.5, "\n");
+    print(3.14-1.06, "\n");
+    print((100-'#')+3, "\n");
+    print(('B'-1)+2, "\n");
+    print(('d'-'#')+1, "\n");
+}
+
+function multest() {
+    print(2*3, "\n");
+    print(2*'b', "\n");
+    print('b'*2, "\n\n");
+
+    print(3.14*2, "\n");
+    print(2*12.5, "\n");
+    print(1.2*2.5, "\n\n");
+
+    print(3*"hi ", "\n");
+    print("yo "*2, "\n");
+}
+
+function divtest() {
+    print(10/5, "\n");
+    print(10/3, "\n");
+    print(12.2/2, "\n");
+    print(10/2.5, "\n");
+    print(3.14/1.1, "\n");
+}
+
+function exptest() {
+    print(2**3, "\n");
+    print(3**2.8, "\n");
+    print(2.8**3, "\n");
+    print(4.4**8.8, "\n");
+    a=2;
+    a;
+}
+
+function testReturn() {
+    return "hello\n";
+    print("whoops\n");
+    2;
+}
+
+function array(arr, ind) {
+    println(arr);
+    arr[1] = ind;
+}
+
+main() {
+    a = -2;
+    println("a: ", a);
+    println("start");
+    #print("Enter something: ");
+    #read(a, b);
+    #print(a+1, "\n");
+    #print(b, "\n");
+
+    #addtest();
+    #subtest();
+    #multest();
+    #divtest();
+
+    #print(testReturn());
+    x = 0;
+    #while(x <= 5) {
+        #print("running\n");
+        #x = x + 1;
+    #}
+    x = 5;
+    list = {1, 2, 3, 4, 5};
+    array(list, x);
+    x = 64;
+    
+    println(list);
+
+
+    #if (x==5) {
+        #print("five\n");
+    #}
+    #else {
+        #print("not five\n");
+    #}
+    
+    print("done\n");
+}
