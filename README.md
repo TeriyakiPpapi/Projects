@@ -1,15 +1,16 @@
 ## Getting Started
 
-Welcome to BISIWROTE Projects. 
+Welcome to my Projects. 
 
 ## MENU 
-
-Ready your eyes and screen for some cool projects
+---
 
 ## NOTE 
 
-Still working and getting used to github, some of this project I have done in the past already. I'm just redoing them and uploading to github. 
+Still working and getting used to github, some of this project I have done in the past already, I'm only reuploading them to github. 
 
 ## ONCE AGAIN
 
-WELCOME TO BISIWROTE 
+WELCOME to my projects--
+
+--
